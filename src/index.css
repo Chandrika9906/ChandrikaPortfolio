@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(100, 116, 139, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 116, 139, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-flow 30s linear infinite;
+  }
+  
+  @keyframes grid-flow {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-text-name {
+    background: linear-gradient(135deg, #f97316 0%, #ec4899 50%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-text-hey {
+    background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glow-btn {
+    box-shadow: 0 4px 20px rgba(96, 165, 250, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .glow-btn:hover {
+    box-shadow: 0 8px 30px rgba(96, 165, 250, 0.5);
+  }
+}
