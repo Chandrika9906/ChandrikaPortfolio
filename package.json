@@ -2,9 +2,6 @@
   "name": "hero-portfolio",
   "private": true,
   "version": "0.0.0",
-  "engines": {
-    "node": "20.x"
-  },
   "type": "module",
   "scripts": {
     "dev": "vite",
