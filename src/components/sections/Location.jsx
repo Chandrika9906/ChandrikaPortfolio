@@ -34,41 +34,47 @@ const Location = () => {
           viewport={{ once: true }}
         >
           {/* Section Title */}
-          <motion.div variants={itemVariants} className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <motion.div variants={itemVariants} className="mb-8 text-center md:text-left">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">
               Location
             </h2>
+            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-500 via-blue-400 to-cyan-400 rounded-full mb-4 mx-auto md:mx-0"></div>
           </motion.div>
 
           {/* Map Container */}
-          <motion.div variants={itemVariants} className="relative">
-            <div className="bg-white dark:bg-slate-800/50 backdrop-blur-sm border border-gray-300 dark:border-slate-700 rounded-xl overflow-hidden shadow-lg">
+          <motion.div variants={itemVariants} className="relative group">
+            <div className="bg-white dark:bg-slate-800/50 backdrop-blur-sm border border-gray-300 dark:border-slate-700 rounded-xl overflow-hidden shadow-lg relative h-[450px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62563.64891234567!2d80.0123456789!3d12.8456789012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525b0b0b0b0b0b%3A0x1234567890abcdef!2sGuduvancheri%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15558.123456789!2d80.21123456789!3d12.87123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525c7890abcdef%3A0x123456789abcdef!2sSemmancheri%2C%20Chennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1717850000000!5m2!1sen!2sin&iwloc=near"
                 width="100%"
-                height="450"
+                height="100%"
                 style={{ border: 0 }}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Location Map"
-                className="w-full"
+                className="w-full absolute inset-0"
               ></iframe>
-            </div>
 
-            {/* Link Below Map */}
-            <div className="mt-4">
-              <a
-                href="https://www.google.com/maps/place/Guduvancheri,+Tamil+Nadu,+India"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors inline-flex items-center gap-2"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                Open in Google Maps
-              </a>
+              {/* Constant Location Card Overlay */}
+              <div className="absolute top-4 left-4 z-20">
+                <a
+                  href="https://www.google.com/maps/place/Semmancheri,+Chennai,+Tamil+Nadu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-white dark:bg-slate-900 px-4 py-2.5 rounded-lg shadow-xl border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-800 transition-all duration-200 group/maplink"
+                >
+                  <div className="flex flex-col">
+                    <span className="text-xs font-bold text-blue-600 dark:text-blue-400">Semmancheri, Chennai</span>
+                    <span className="text-[10px] text-gray-500 flex items-center gap-1">
+                      Open in Maps
+                      <svg className="w-3 h-3 group-hover/maplink:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </div>
             </div>
           </motion.div>
         </motion.div>

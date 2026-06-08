@@ -1,63 +1,69 @@
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+
+// Asset Imports
+import pullshark from '../../assets/pullshark.png'
+import starstruk from '../../assets/starstruk.png'
+import codechef from '../../assets/CodeChefBadge.png'
+import leetcode75 from '../../assets/LeetCode_75.png'
+import mongodb from '../../assets/mongodb.png'
+import oracle from '../../assets/oracle.png'
+import metaFrontEnd from '../../assets/meta-front-end-developer-certificate.png'
+import badge8 from '../../assets/lg2550.png'
 
 const Badges = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
+
+  const badges = [
+    { title: 'Pull Shark', provider: 'GitHub', image: pullshark, isRound: true },
+    { title: 'Starstruck', provider: 'GitHub', image: starstruk, isRound: true },
+    { title: 'CodeChef Badge', provider: 'CodeChef', image: codechef, isRound: false },
+    { title: 'LeetCode 75', provider: 'LeetCode', image: leetcode75, isRound: true },
+    { title: 'MongoDB Certified', provider: 'MongoDB', image: mongodb, isRound: false },
+    { title: 'Oracle Certified', provider: 'Oracle', image: oracle, isRound: false },
+    { title: 'Meta Front-End', provider: 'Meta', image: metaFrontEnd, isRound: false },
+    { title: 'LeetCode 50 Days', provider: 'LeetCode', image: badge8, isRound: false }
+  ]
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext()
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [currentIndex])
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : badges.length - 1))
+  }
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev < badges.length - 1 ? prev + 1 : 0))
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 }
     }
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
-      y: 0,
+      scale: 1,
       transition: { duration: 0.5, ease: "easeOut" }
     }
-  }
-
-  const badges = [
-    {
-      title: 'Quickdraw',
-      provider: 'GitHub',
-      image: 'https://github.githubassets.com/images/modules/profile/achievements/quickdraw-default.png'
-    },
-    {
-      title: 'Galaxy Brain',
-      provider: 'GitHub',
-      image: 'https://github.githubassets.com/images/modules/profile/achievements/galaxy-brain-default.png'
-    },
-    {
-      title: 'GitHub Foundations',
-      provider: 'GitHub',
-      image: 'https://images.credly.com/size/340x340/images/024d0122-724d-4c5a-bd83-cfe3c4b7a073/image.png'
-    },
-    {
-      title: 'Data Analytics Essentials',
-      provider: 'IBM',
-      image: 'https://images.credly.com/size/340x340/images/a972f054-be07-4845-85c7-95c8d11852f5/image.png'
-    }
-  ]
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : 0))
-  }
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev < badges.length - 4 ? prev + 1 : prev))
   }
 
   return (
     <section id="badges" className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 py-16 flex items-center">
       <div className="absolute inset-0 grid-bg opacity-20"></div>
       
-      <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/20 dark:bg-blue-500/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/20 dark:bg-purple-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
 
       <div className="relative z-10 container mx-auto px-6 max-w-6xl">
         <motion.div
@@ -67,7 +73,7 @@ const Badges = () => {
           viewport={{ once: true }}
         >
           {/* Section Header */}
-          <motion.div variants={itemVariants} className="text-center mb-12">
+          <motion.div variants={itemVariants} className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-3">
               Achieved Badges
             </h2>
@@ -78,64 +84,67 @@ const Badges = () => {
           </motion.div>
 
           {/* Badges Carousel */}
-          <div className="relative">
-            <div className="overflow-hidden">
+          <div className="relative max-w-7xl mx-auto px-4">
+            <div className="overflow-hidden py-12">
               <motion.div 
-                className="flex gap-6"
-                animate={{ x: `-${currentIndex * 25}%` }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="flex gap-12"
+                animate={{ x: `-${currentIndex * (100 / 3)}%` }}
+                transition={{ type: "spring", stiffness: 200, damping: 25 }}
               >
-                {badges.map((badge, index) => (
+                {badges.concat(badges.slice(0, 3)).map((badge, index) => ( 
                   <motion.div
                     key={index}
-                    variants={itemVariants}
-                    className="relative group flex-shrink-0 w-[calc(25%-18px)]"
+                    className="relative group flex-shrink-0 w-[calc(33.333%-32px)]"
                   >
-                    <div className="absolute -inset-1 bg-gradient-radial from-blue-500/30 via-purple-500/20 to-transparent rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
-                    <div className="relative bg-white dark:bg-slate-800/50 backdrop-blur-sm border border-gray-300 dark:border-slate-700 rounded-xl p-6 hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 group-hover:-translate-y-2 h-full flex flex-col items-center">
+                    {/* Glowing Aura Behind Card */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    {/* Individual Badge Card */}
+                    <div className="relative bg-white/5 dark:bg-slate-900/60 backdrop-blur-xl border border-gray-200/30 dark:border-white/20 rounded-3xl p-8 hover:border-blue-500/50 transition-all duration-300 group-hover:-translate-y-4 flex flex-col items-center shadow-2xl">
                       {/* Badge Image */}
-                      <div className="w-32 h-32 mb-4 flex items-center justify-center">
-                        <img 
+                      <div className="w-44 h-44 mb-8 flex items-center justify-center relative">
+                        <motion.img 
                           src={badge.image} 
                           alt={badge.title}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                          animate={badge.isRound ? { rotateY: [0, -360, -360] } : {}}
+                          transition={badge.isRound ? { 
+                            duration: 4, 
+                            repeat: Infinity, 
+                            times: [0, 0.75, 1],
+                            ease: "easeInOut" 
+                          } : {}}
                         />
                       </div>
-
-                      {/* Badge Title */}
-                      <h3 className="text-lg font-bold text-gray-900 dark:text-white text-center mb-2">
-                        {badge.title}
-                      </h3>
-
-                      {/* Badge Provider */}
-                      <p className="text-sm text-gray-600 dark:text-slate-400 text-center">
-                        {badge.provider}
-                      </p>
+                      
+                      {/* Text Content */}
+                      <div className="text-center">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">
+                          {badge.title}
+                        </h3>
+                        <p className="text-xs text-blue-500 uppercase tracking-[0.25em] font-bold opacity-90">
+                          {badge.provider}
+                        </p>
+                      </div>
                     </div>
                   </motion.div>
                 ))}
               </motion.div>
             </div>
 
-            {/* Navigation Arrows */}
-            <div className="flex items-center justify-center gap-4 mt-8">
+            {/* Simple Navigation Buttons */}
+            <div className="flex items-center justify-center gap-16 mt-8">
               <button
                 onClick={handlePrev}
-                disabled={currentIndex === 0}
-                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 flex items-center justify-center hover:border-blue-500 dark:hover:border-blue-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="text-4xl text-gray-400 hover:text-white transition-all hover:scale-125 hover:-translate-x-2 active:scale-95 px-4"
               >
-                <svg className="w-5 h-5 text-gray-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
+                &lt;
               </button>
               <button
                 onClick={handleNext}
-                disabled={currentIndex >= badges.length - 4}
-                className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-gray-300 dark:border-slate-700 flex items-center justify-center hover:border-blue-500 dark:hover:border-blue-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="text-4xl text-gray-400 hover:text-white transition-all hover:scale-125 hover:translate-x-2 active:scale-95 px-4"
               >
-                <svg className="w-5 h-5 text-gray-700 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                &gt;
               </button>
             </div>
           </div>

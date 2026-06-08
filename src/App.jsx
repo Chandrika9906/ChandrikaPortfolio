@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
 import Services from './components/sections/Services'
@@ -16,31 +16,36 @@ import Footer from './components/sections/Footer'
 import ThemeToggle from './components/ui/ThemeToggle'
 import Navbar from './components/ui/Navbar'
 import CustomCursor from './components/ui/CustomCursor'
+import Preloader from './components/ui/Preloader'
 import { useTheme } from './hooks/useTheme'
 
 function App() {
   const { isDark, toggleTheme } = useTheme()
+  const [loading, setLoading] = useState(true)
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0a0e27] transition-colors duration-500">
-      <CustomCursor />
-      <Navbar />
-      <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
-      <Hero />
-      <About />
-      <Services />
-      <Skills />
-      <Projects />
-      <GitHub />
-      <Leetcode />
-      <Badges />
-      <Experience />
-      <Certifications />
-      <Education />
-      <Contact />
-      <Location />
-      <Footer />
-    </div>
+    <>
+      <Preloader onComplete={() => setLoading(false)} />
+      <div className={`min-h-screen bg-white dark:bg-[#0a0e27] transition-colors duration-500 ${loading ? 'hidden' : 'block'}`}>
+        <CustomCursor />
+        <Navbar />
+        <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
+        <Hero />
+        <About />
+        <Services />
+        <Skills />
+        <Projects />
+        <GitHub />
+        <Leetcode />
+        <Badges />
+        <Experience />
+        <Certifications />
+        <Education />
+        <Contact />
+        <Location />
+        <Footer />
+      </div>
+    </>
   )
 }
 

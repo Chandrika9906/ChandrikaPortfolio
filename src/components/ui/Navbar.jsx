@@ -47,13 +47,19 @@ const Navbar = () => {
         <div className="flex items-center justify-center h-16 gap-12">
           {/* Logo */}
           <motion.div 
-            className="text-3xl font-bold gradient-text cursor-pointer w-12 h-12 border-2 border-blue-500 rounded-lg flex items-center justify-center"
+            className="relative group cursor-pointer"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.15, rotate: 5 }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            C
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
+            <div className="relative w-10 h-10 bg-white/20 dark:bg-white/5 backdrop-blur-xl border border-white/30 dark:border-white/10 rounded-lg flex items-center justify-center overflow-hidden shadow-xl">
+              <span className="text-xl font-black bg-gradient-to-br from-blue-600 to-blue-400 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">
+                C
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent pointer-events-none"></div>
+            </div>
           </motion.div>
 
           {/* Desktop Menu */}
